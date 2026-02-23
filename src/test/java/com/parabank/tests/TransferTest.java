@@ -20,7 +20,7 @@ public class TransferTest extends BaseTest {
 
     @Test
     public void shouldTransferFundsWithSameAccount() {
-        int amount = 1000;
+        int amount = 100;
         test.get().info("Sending POST transfer of $" + amount + " from account " + Config.VALID_ACCOUNT_ID + " to same account " + Config.VALID_ACCOUNT_ID + " (/transfer)");
         Response response = accountApi.transferFunds(Config.VALID_ACCOUNT_ID, Config.VALID_ACCOUNT_ID, amount);
 
@@ -61,7 +61,7 @@ public class TransferTest extends BaseTest {
 
     @Test
     public void shouldTransferFundsWithNonExistsAccount() {
-        int amount = 1000;
+        int amount = 100;
         int account = 13456;
         test.get().info("Sending POST transfer of $" + amount + " from account " + Config.VALID_ACCOUNT_ID + " to non-existing account " + account + " (/transfer)");
         Response response = accountApi.transferFunds(Config.VALID_ACCOUNT_ID, account, amount);

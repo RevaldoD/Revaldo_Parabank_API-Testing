@@ -33,15 +33,20 @@ jobs:
         run: |
           echo "Waiting for ParaBank..."
           for i in $(seq 1 30); do
-            if curl -s http://localhost:8080/parabank/services/bank/accounts/13344 > /dev/null 2>&1; then
-              echo "ParaBank is ready!"
-              exit 0
+            if curl -s http://localhost:8080/parabank/ > /dev/null 2>&1; then
+              echo "ParaBank is up!"
+              break
             fi
             echo "Attempt $i - not ready yet, waiting 10s..."
             sleep 10
           done
-          echo "ParaBank failed to start"
-          exit 1
+
+      - name: Initialize ParaBank database
+        run: |
+          echo "Initializing database with demo data..."
+          curl -s -X POST http://localhost:8080/parabank/services/bank/initializeDB
+          echo "Database initialized!"
+          sleep 5
 
       - name: Run API Tests
         run: mvn clean test

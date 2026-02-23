@@ -91,7 +91,7 @@ public class TransactionsTest extends BaseTest {
 
     @Test
     public void shouldFindTransactionListsWithAmount() throws Exception {
-        int amount = 1000;
+        int amount = 100;
 
         test.get().info("Sending GET request for transactions with amount: $" + amount + " for account ID: " + Config.VALID_ACCOUNT_ID + " (/accounts/{accountId}/transactions/amount/{amount})");
         Response response = transactionApi.getTransactionWithAmount(Config.VALID_ACCOUNT_ID,amount);

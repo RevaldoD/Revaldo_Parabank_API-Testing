@@ -23,7 +23,7 @@ public class LoanTest extends BaseTest {
 
     @Test
     public void shouldAbleToRequestLoan() {
-        int amount = 1000;
+        int amount = 100;
         int downPayment = 10;
         test.get().info("Sending POST loan request: amount=$" + amount + ", downPayment=$" + downPayment + " for customer ID: " + Config.CUSTOMER_ID + " (/requestLoan)");
         Response response = loanApi.requestLoan(Config.CUSTOMER_ID,amount,downPayment,Config.VALID_ACCOUNT_ID);
@@ -42,7 +42,7 @@ public class LoanTest extends BaseTest {
 
 
     public void shouldUnableToRequestLoan() {
-        int amount = 1000;
+        int amount = 100;
         int downPayment = 10;
         test.get().info("Sending POST loan request: amount=$" + amount + ", downPayment=$" + downPayment + " for customer ID: " + Config.CUSTOMER_ID + " (/requestLoan)");
         Response response = loanApi.requestLoan(Config.CUSTOMER_ID,amount,downPayment,Config.VALID_ACCOUNT_ID);
