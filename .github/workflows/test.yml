@@ -14,6 +14,12 @@ jobs:
     name: Run API Tests
     runs-on: ubuntu-latest
 
+    services:
+      parabank:
+        image: parasoft/parabank
+        ports:
+          - 8080:8080
+
     steps:
       - uses: actions/checkout@v4
 
@@ -22,6 +28,20 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+
+      - name: Wait for ParaBank to start
+        run: |
+          echo "Waiting for ParaBank..."
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:8080/parabank/services/bank/accounts/13344 > /dev/null 2>&1; then
+              echo "ParaBank is ready!"
+              exit 0
+            fi
+            echo "Attempt $i - not ready yet, waiting 10s..."
+            sleep 10
+          done
+          echo "ParaBank failed to start"
+          exit 1
 
       - name: Run API Tests
         run: mvn clean test
